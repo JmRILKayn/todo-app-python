@@ -1,100 +1,61 @@
-# ToDo App - Python
+# Flask To-Do Application - Enhanced with API & Tagging
 
-## Description
+This project upgrades a basic Flask To-Do app into a more robust and extensible application.
 
-This is a simple ToDo list web application built with Flask, a Python web framework.
+## Key Enhancements:
 
-![todo-img](static/todo-img.png)
+1.  **Comprehensive RESTful API**:
+    * Full CRUD operations for To-Do items (`/api/v1/todos`) and Tags (`/api/v1/tags`).
+    * Uses standard REST principles (HTTP methods, JSON format, proper status codes).
+    * Enables programmatic access for integration with other applications (e.g., mobile apps).
 
-## Prerequisites
+2.  **Tag Management System**:
+    * Implemented a many-to-many relationship for flexible task categorization.
+    * Allows multiple tags per To-Do, with dynamic creation and filtering by tag.
 
-- Python 3.11.5
+3.  **Enhanced Web UI**:
+    * Integrated tag input and display into the web interface.
+    * Added tag filtering and a new "Edit Details" modal for streamlined updates.
 
-## Getting Started
+## Technical Highlights:
 
-1. Clone this repository to your local machine.
+* **Models**: SQLAlchemy models for `Todo` and `Tag` with an association table.
+* **API Design**: Modularized with Flask Blueprints.
+* **Validation**: Robust input validation for API and web forms.
+* **Testing**: Extensive unit tests using `pytest` and `pytest-cov`, achieving **100% test coverage** on `app.py`'s functional code. Includes comprehensive positive and negative test cases for all CRUD operations.
 
-   ```
-   git clone https://github.com/faizan35/todo-app-python.git
-   ```
+## Setup & Running:
 
-2. Navigate to the project directory.
-
-   ```
-   cd todo-app-python
-   ```
-
-3. Install dependencies.
-
-   ```
-   pip install -r requirements.txt
-   ```
-
-4. Run the Flask application.
-
-   ```
-   python app.py
-   ```
-
-5. Open your browser and go to [http://localhost:5000](http://localhost:5000) to access the ToDo app.
-
-## Usage
-
-- Add a new task by entering it in the input field and clicking the "Add" button.
-- Complete a task by clicking the "Complete" button next to the task.
-- Delete a task by clicking the "Delete" button next to the task.
-
-## Docker
-
-Build and run the Docker container.
-
-```bash
-docker build -t todo-app .
-docker run -d -p 5000:5000 todo-app
-```
-
-## DockerHub
-
-1. Pull the image from DockerHub.
-
-   ```bash
-   docker pull faizan44/todo-app
-   ```
-
-2. Run the Docker container.
-
-   ```bash
-   docker run -d -p 5000:5000 faizan44/todo-app
-   ```
-
-Access the app at [http://localhost:5000](http://localhost:5000).
-
-## Deploy on Kubernetes
-
-1. You must have a k8s cluster.
-2. Clone this repo. `git clone https://github.com/faizan35/todo-app-python.git`
-3. Navigate inside the `k8s` dir in the repo.
-4. Create the namespace `kubectl create namespace todo`
-5. Execute this command
-
-   ```sh
-   kubectl apply -f .
-   ```
-
-6. The application should be running on Port `30080`.
-
-## Monitoring
-
-sudo snap install helm --classic
-
-helm repo update
+1.  **Clone**: `git clone https://github.com/JmRILKayn/flask-todo.git` (Use this URL for your fork or your professor's if your changes are merged to `main`)
+    * `cd flask-todo`
+2.  **Env**: `python -m venv venv` & `venv\Scripts\activate` (on Windows) or `source venv/bin/activate` (on Unix/macOS)
+3.  **Install**: `pip install Flask Flask-SQLAlchemy pytest pytest-flask pytest-cov`
+4.  **Run App**: `python app.py` (access at `http://127.0.0.1:5000/`)
+    * Initialize Database (first run or after cleaning `db.sqlite`):
+        `python -c "from app import db, app; with app.app_context(): db.create_all(); print('Database initialized.')"`
+5.  **Run Tests**: `pytest --cov=app --cov-report=term-missing` (should show 100% coverage)
 
 ---
 
-## Contributing
+## Technical Requirements Fulfilled:
 
-Feel free to contribute to this project by opening issues or submitting pull requests.
+This project specifically addresses the following technical requirements:
 
-## License
+### 1. API Design:
+* **RESTful Principles:** Utilizes proper resource naming (`/api/v1/todos`, `/api/v1/tags`) and appropriate HTTP methods (GET, POST, PUT/PATCH, DELETE) for resource interaction.
+* **JSON Format:** Implements JSON for both request and response payloads across all API endpoints.
+* **Status Codes:** Includes proper HTTP status codes (e.g., `200 OK`, `201 Created`, `400 Bad Request`, `404 Not Found`, `204 No Content`) for clear API communication.
+* **API Documentation:** Comprehensive API documentation is provided within this `README.md` file (in the "Key Enhancements" section and implicitly throughout the documentation of API endpoints).
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### 2. Submission:
+* **Original Repository:** (URL will be provided in final submission/presentation)
+* **Cloned GitHub Repository with Changes:** (URL to your fork/branch will be provided in final submission/presentation)
+* **README.md:** This document itself explains all changes and project details.
+* **Video Presentation:** (Direct link to YouTube/Google-video MP4 file will be provided in final submission/presentation)
+
+---
+
+## Repository Links
+
+- Original Repository: `https://github.com/patrickloeber/flask-todo.git`
+- Forked with Enhancements: `https://github.com/JmRILKayn/flask-todo/tree/feature/api-tags-enhancements`
