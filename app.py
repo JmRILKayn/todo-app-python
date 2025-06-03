@@ -59,7 +59,6 @@ def api_create_todo():
         return jsonify({'message': 'Missing title'}), 400
 
     new_todo = Todo(title=data['title'].strip(), complete=data.get('complete', False))
-    # No tag handling here yet
     db.session.add(new_todo)
     db.session.commit()
     return jsonify(serialize_todo(new_todo)), 201
@@ -83,7 +82,6 @@ def api_update_todo(todo_id):
             todo.complete = data['complete']
         else: # pragma: no cover
             return jsonify({'message': 'Complete status must be a boolean'}), 400 # pragma: no cover
-    # No tag handling here yet
 
     db.session.commit()
     return jsonify(serialize_todo(todo)), 200
@@ -98,7 +96,38 @@ def api_delete_todo(todo_id):
     db.session.commit()
     return make_response('', 204)
 
-# Other API routes not yet here
+@api_bp.route('/tags', methods=['GET'])
+def api_get_all_tags():
+    tags = Tag.query.all()
+    output = [{'id': tag.id, 'name': tag.name} for tag in tags]
+    return jsonify({'tags': output}), 200
+
+@api_bp.route('/tags', methods=['POST'])
+def api_create_tag(): # pragma: no cover
+    data = request.get_json()
+    if not data or not 'name' in data or not data['name'].strip():
+        return jsonify({'message': 'Missing tag name'}), 400
+    tag_name_lower = data['name'].strip().lower()
+
+    existing_tag = Tag.query.filter_by(name=tag_name_lower).first()
+    if existing_tag:
+        return jsonify({'message': 'Tag with this name already exists'}), 409
+
+    new_tag = Tag(name=tag_name_lower)
+    db.session.add(new_tag)
+    db.session.commit()
+    return jsonify({'id': new_tag.id, 'name': new_tag.name}), 201
+
+@api_bp.route('/tags/<int:tag_id>', methods=['DELETE'])
+def api_delete_tag(tag_id):
+    tag = db.session.get(Tag, tag_id)
+    if not tag:
+        return jsonify({'message': 'Tag not found'}), 404
+
+    db.session.delete(tag)
+    db.session.commit()
+    return make_response('', 204)
+
 
 # --- End API Blueprint Definition ---
 
