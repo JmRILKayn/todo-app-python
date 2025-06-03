@@ -58,4 +58,4 @@ This project specifically addresses the following technical requirements:
 ## Repository Links
 
 - Original Repository: `https://github.com/faizan35/todo-app-python.git`
-- Forked with Enhancements: 'https://github.com/JmRILKayn/todo-app-python.git`
+- Forked with Enhancements: `https://github.com/JmRILKayn/todo-app-python.git`
