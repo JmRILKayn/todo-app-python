@@ -57,5 +57,5 @@ This project specifically addresses the following technical requirements:
 
 ## Repository Links
 
-- Original Repository: `https://github.com/patrickloeber/flask-todo.git`
+- Original Repository: `https://github.com/faizan35/todo-app-python.git`
 - Forked with Enhancements: `https://github.com/JmRILKayn/flask-todo/tree/feature/api-tags-enhancements`
