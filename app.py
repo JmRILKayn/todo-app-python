@@ -174,18 +174,18 @@ def api_delete_tag(tag_id):
 
 app.register_blueprint(api_bp)
 
-# --- Traditional Web UI Routes (original functionality) ---
+# --- Traditional Web UI Routes ---
 
 @app.route("/")
 def home():
     todo_list = Todo.query.all()
-    all_tags = Tag.query.order_by(Tag.name).all() # This was added here in original
+    all_tags = Tag.query.order_by(Tag.name).all()
     return render_template("base.html", todo_list=todo_list, all_tags=all_tags)
 
 @app.route("/add", methods=["POST"])
 def add():
     title = request.form.get("title")
-    tag_string = request.form.get("tags") # Now handled
+    tag_string = request.form.get("tags")
 
     if not title or not title.strip():
         return "Todo title cannot be empty", 400
@@ -193,7 +193,7 @@ def add():
     new_todo = Todo(title=title.strip(), complete=False)
     db.session.add(new_todo)
 
-    if tag_string: # Now handled
+    if tag_string:
         tag_names = [tag.strip().lower() for tag in tag_string.split(',') if tag.strip()]
         for tag_name in tag_names: # pragma: no cover
             tag = Tag.query.filter_by(name=tag_name).first() # pragma: no cover
@@ -222,7 +222,7 @@ def update_todo_details(todo_id):
         return "Todo not found", 404 # pragma: no cover
 
     new_title = request.form.get("title")
-    tag_string = request.form.get("tags") # Now handled
+    tag_string = request.form.get("tags")
 
     if not new_title or not new_title.strip():
         return "Todo title cannot be empty", 400
@@ -231,7 +231,7 @@ def update_todo_details(todo_id):
 
     # Update tags (clear existing and add new ones from the form)
     todo.tags.clear()
-    if tag_string: # Now handled
+    if tag_string:
         tag_names = [tag.strip().lower() for tag in tag_string.split(',') if tag.strip()]
         for tag_name in tag_names:
             tag = Tag.query.filter_by(name=tag_name).first()
